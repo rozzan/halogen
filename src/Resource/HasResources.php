@@ -24,5 +24,11 @@ trait HasResources {
 			$resources = array_merge($resources, [$rel => $model]);
 
 	}
+
+	public function getEmbeddedAttribute() {
+
+		return $this->resources;
+
+	}
 	
 }
