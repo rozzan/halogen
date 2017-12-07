@@ -1,0 +1,25 @@
+{
+	"name": "rozzan/halogen",
+	"description": "Simple HATEOAS package for Laravel 5.",
+	"keywords": ["halogen", "laravel", "hal", "hateoas", "php", "json"],
+	"homepage": "https://github.com/rozzan/halogen",
+	"type": "library",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rory Kelly",
+			"email": "rorykelly76@gmail.com",
+			"homepage": "https://rorykelly.info",
+			"role": "Developer"
+		}
+	],
+	"minimum-stability": "dev",
+	"require": {
+		"php": "~5.4|~7.0"
+	},
+	"autoload": {
+		"psr-4": {
+			"Halogen\\": "src/"
+		}
+	}		
+}
