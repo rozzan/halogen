@@ -4,7 +4,7 @@ namespace Halogen\Resource;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Resource {
+class Resource implements \JsonSerializable {
 		
 	protected $rel;
 	protected $model;
@@ -13,6 +13,12 @@ class Resource {
 
 		$this->rel = $rel;
 		$this->model = $model;
+
+	}
+
+	public function jsonSerialize() {
+
+		return [$this->rel => $this->model];
 
 	}
 
