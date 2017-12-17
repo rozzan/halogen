@@ -12,15 +12,10 @@ trait HasLinks {
 		if(!in_array('_links', $this->appends))
 			array_push($this->appends, '_links');
 
-		for($i = 0; $i < sizeof($curies); $i += 1) {
-			if($curies[$i]['name'] == $name)	{
-				$curies[$i]['name'] = $name;
-				$curies[$i]['href'] = $href;
-				return;
-			}
-		}
+		$curie = new Curie($name, $href);
 
-		array_push($curies, ['name' => $name, 'href' => $href]);
+		if(!in_array($curie, $curies))
+			array_push($curies, $curie);
 
 	}
 
@@ -29,20 +24,31 @@ trait HasLinks {
 		if(!in_array('_links', $this->appends))
 			array_push($this->appends, '_links');
 
-		if(array_key_exists($rel, $links))
-			$links[$rel] = $href;
-		else
-			$links = array_merge($links, [$rel => $href]);
+		$link = new Link($rel, $href);
+
+		if(!in_array($link, $links))
+			array_push($links, $link);
 
 	}
 
-	public function addLinkWithCurie($curie, $rel, $href) {
+	public function addLinkWithCurie($curieName, $rel, $href) {
 
-		for($i = 0; $i < sizeof($curies); $i += 1) {
-			if($curies[$i]['name'] == $curie)	{
-				$links[$curie . ':' . $rel] = $href;
+		if(!in_array('_links', $this->appends))
+			array_push($this->appends, '_links');
+
+		foreach($curies as $curie) {
+
+			if($curie->name === $curieName) {
+
+				$link = new Link($curieName.':'.$rel, $href);
+
+				if(!in_array($link, $links))
+					array_push($links, $link);
+
 				return;
+
 			}
+
 		}
 
 	}
