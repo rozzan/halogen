@@ -2,7 +2,7 @@
 
 namespace Halogen\Link;
 
-class Curie {
+class Curie implements \JsonSerializable {
 	
 	private $name;
 	private $href;
@@ -14,5 +14,10 @@ class Curie {
 
 	}
 
+	public function jsonSerialize() {
+
+		return ['name' => $this->name, 'href' => $this->href];
+
+	}
 
 }
