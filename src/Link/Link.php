@@ -2,7 +2,7 @@
 
 namespace Halogen\Link;
 
-class Link {
+class Link implements \JsonSerializable {
 	
 	protected $rel;
 	protected $href;
@@ -11,6 +11,12 @@ class Link {
 
 		$this->rel = $rel;
 		$this->href = $href;
+
+	}
+
+	public function jsonSerialize() {
+
+		return [$this->rel => ['href' => $this->href]];
 
 	}
 
