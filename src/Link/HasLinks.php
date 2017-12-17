@@ -19,12 +19,12 @@ trait HasLinks {
 
 	}
 
-	public function addLink($rel, $href) {
+	public function addLink($rel, $href, $replace) {
 
 		if(!in_array('_links', $this->appends))
 			array_push($this->appends, '_links');
 
-		$link = new Link($rel, $href);
+		$link = new Link($rel, $href, $replace);
 
 		if(!in_array($link, $links))
 			array_push($links, $link);
