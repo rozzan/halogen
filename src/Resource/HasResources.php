@@ -13,21 +13,32 @@ trait HasResources {
 		if(!in_array('_embedded', $this->appends))
 			array_push($this->appends, '_embedded');
 
-		if(array_key_exists($rel, $resources)) {
+		$resource = new Resource($rel, $model);
 
-			if(!array_key_exists(0, $resources[$rel]))
-				$resources[$rel] = array($resources[$rel], $model);
-			else
-				array_push($resources[$rel], $model);
-
-		} else
-			$resources = array_merge($resources, [$rel => $model]);
+		if(!in_array($resource, $resources))
+			array_push($resources, $resource);
 
 	}
 
 	public function getEmbeddedAttribute() {
 
-		return $this->resources;
+		$json = [];
+
+		foreach($resources as $resource) {
+
+			if(array_key_exists($resource->rel, $json)) {
+
+				if(!array_key_exists(0, $json[$resource->rel]))
+					$json[$resource->rel] = array($json[$resource->rel], $resource->model);
+				else
+					array_push($json[$resource->rel], $resource->model);
+
+			} else
+				$json = array_merge($json, $resource);
+
+		}
+
+		return $json;
 
 	}
 	
