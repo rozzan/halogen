@@ -53,4 +53,38 @@ trait HasLinks {
 
 	}
 
+	public function getLinksAttribute() {
+
+		$json = [];
+
+		if(sizeof($curies) > 0)
+			$json['curies'] = [];
+
+		foreach($curies as $curie) {
+
+			$same = false;
+			for($i = 0; $i < sizeof($json['curies']); $i += 1) {
+
+				if($json['curies'][$i]->name == $curie->name) {
+
+					$json['curies'][$i] = $curie;
+					$same = true;
+					break;
+
+				}
+
+			}
+
+			if(!$same)
+				array_push($json['curies'], $curie);
+
+		}
+
+		foreach($links as $link)
+			$json[$link->rel => ['href' => $link->href]];
+
+		return $json;
+
+	}
+
 }
