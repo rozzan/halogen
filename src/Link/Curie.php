@@ -4,8 +4,8 @@ namespace Halogen\Link;
 
 class Curie implements \JsonSerializable {
 	
-	private $name;
-	private $href;
+	protected $name;
+	protected $href;
 
 	public function __construct($name, $href) {
 
